@@ -1,21 +1,25 @@
 from django.db import models
-# Modelo usuario
-class Usuario(models.Model):
-  idUsuario = models.AutoField(db_column="idUsuario", primary_key=True)
-  runUsuario = models.CharField(db_column='runUsuario', max_length=10)
-  primerNombre = models.CharField(max_length=20, blank=False, null=False)
-  segundoNombre = models.CharField(max_length=20, blank=True, null=True)
-  apPaterno = models.CharField(max_length=25, blank=False, null=False)
-  apMaterno = models.CharField(max_length=25, blank=True, null=True)
-  def __str__(self):
-    return str(self.nombre + ' ' + self.primerNombre + ' ' + self.apPaterno + ' - '
-               + self.run)
-  
-  #Modelo Deck 
-class Deck(models.Model):
-  idDeck = models.AutoField(db_column='idDeck', primary_key=True)
-  nombreDeck = models.CharField(max_length=30, blank=False, null=False)
-  precioDeck = models.IntegerField(blank=False, null=True)
-  descripcion = models.CharField(max_length=500, blank=False, null=False)
-  imagen_url = models.CharField(blank=False, null=False)
+
 # Create your models here.
+
+class Usuario(models.Model):
+    idUsuario = models.AutoField(primary_key=True)
+    runUsuario = models.CharField(max_length=10)
+    primerNombre = models.CharField(max_length=20, blank=False, null=False)
+    segundoNombre = models.CharField(max_length=20, blank=True, null=True)
+    apPaterno = models.CharField(max_length=25, blank=False, null=False)
+    apMaterno = models.CharField(max_length=25, blank=True, null=True)
+    direccion = models.CharField(max_length=100, blank=False, null=False)
+
+    def __str__(self):
+        return str(self.primerNombre + " " + self.apPaterno)
+
+class Deck(models.Model):
+    idDeck = models.AutoField(primary_key=True)
+    nombreDeck = models.CharField(max_length=30, blank=False, null=False)
+    precioDeck = models.IntegerField(blank=False, null=True)
+    descripcion = models.CharField(max_length=500, blank=False, null=False)
+    imagen_url = models.CharField(max_length=200, blank=False, null=False)
+
+    def __str__(self):
+        return str(self.nombreDeck + ' ' + str(self.precioDeck))

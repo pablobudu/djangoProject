@@ -36,8 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'WaffleDecks',
     'django.contrib.staticfiles',
-    'bootstrap5'
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [

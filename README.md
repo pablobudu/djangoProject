@@ -1,4 +1,7 @@
 # djangoProject
 Proyecto Django
 ## Instrucciones: 
-xddd
+
+## Credenciales para la página /admin
+user: admin
+password: pass1234
