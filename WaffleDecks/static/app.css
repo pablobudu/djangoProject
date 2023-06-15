@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'INTER';
+  src: url('/public/fonts/Inter-VariableFont_slnt\,wght.ttf') format('ttf');
+}
+h1 {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+body {
+  font-family:'INTER', Verdana, Geneva, Tahoma, sans-serif !important;
+  padding: 0 !important ;
+}
+
+main{
+  margin-top: 70px;
+  margin-bottom: 40px;
+}
+
+footer {
+  margin-top: 70px;
+  margin-bottom: 0 !important;
+}
+
+ul{
+  text-align: left; 
+  list-style-type:none;
+}
+#categoriasCatalogo a {
+  text-decoration: none !important;
+  color: black;
+  font-weight: bold;
+}
+#categoriasCatalogo li {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+#categoriasCatalogo {
+  margin-top: 100px;
+  border-style: solid;
+  border-radius: 10px;
+  background-color:gainsboro;
+}
+#container-catalogo {
+  margin-top: 100px;
+}
+#descriptionContainer {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.loginContainer {
+  margin-top: 100px;
+}
+
+.divRecuperarContrasenia {
+  padding-left: 0 !important; 
+}
+.selector {
+  margin-bottom: 20px;
+}
+.container-envio {
+  padding: 50px;
+}
+.btn-envio {
+
+  margin-top: 20px;
+}
