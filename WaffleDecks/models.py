@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Usuario(models.Model):
     idUsuario = models.AutoField(primary_key=True)
     runUsuario = models.CharField(max_length=10)
@@ -14,12 +15,14 @@ class Usuario(models.Model):
     def __str__(self):
         return str(self.primerNombre + " " + self.apPaterno)
 
+
 class Deck(models.Model):
     idDeck = models.AutoField(primary_key=True)
-    nombreDeck = models.CharField(max_length=30, blank=False, null=False)
+    nombreDeck = models.CharField(max_length=30, blank=False, null=True)
     precioDeck = models.IntegerField(blank=False, null=True)
-    descripcion = models.CharField(max_length=500, blank=False, null=False)
-    imagen_url = models.CharField(max_length=200, blank=False, null=False)
+    descripcion = models.CharField(max_length=500, blank=False, null=True)
+    imagen = models.ImageField(
+        upload_to='imgs/', blank=False, null=False, default='default_image.jpg')
 
     def __str__(self):
         return str(self.nombreDeck + ' ' + str(self.precioDeck))
