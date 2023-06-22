@@ -22,7 +22,7 @@ class Deck(models.Model):
     precioDeck = models.IntegerField(blank=False, null=True)
     descripcion = models.CharField(max_length=500, blank=False, null=True)
     imagen = models.ImageField(
-        upload_to='imgs/', blank=False, null=False, default='default_image.jpg')
+        upload_to='imgs/', blank=False, null=False)
 
     def __str__(self):
         return str(self.nombreDeck + ' ' + str(self.precioDeck))
