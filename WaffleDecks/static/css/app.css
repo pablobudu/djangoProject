@@ -10,6 +10,7 @@ h1 {
 body {
   font-family: 'INTER', Verdana, Geneva, Tahoma, sans-serif !important;
   padding: 0 !important;
+  background-color: green !important;
 }
 
 main {

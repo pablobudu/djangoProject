@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+{% comment %} Este archivo será la base para todas las páginas.
+Hago esto para que no sea necesario importar la navbar y el footer en cada una de los templates html que hagamos, sino
+que simplemente importamos este arhicvo.
+{% endcomment %}
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WaffleDecks</title>
-  <link rel="stylesheet" href="public/app.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
-    crossorigin="anonymous"></script>
-  <script type="module" src="js/carrito.js"></script>
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/app.css'%}">
+  {% block scripts %}
+  {% endblock %}
+  <script type="module" src="{% static 'js/carrito.js'%}"></script>
 </head>
 
 <body class="text-bg-dark p-3">
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary position-relative" data-bs-theme="dark">
+  <!--Nabar-->
+  <nav class="navbar fixed-top navbar-dark bg-dark navbar-expand-lg bg-body-tertiary position-relative"
+    data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">
-        <img src="FotosGit\logoclaudio.jpg" alt="logo" width="30" height="24" class="d-inline-block align-text-top" />
+      <a class="navbar-brand" href={% url 'index' %}>
+        <img src="{% static 'imgs/logoclaudio.jpg'%}" alt="logo" width="30" height="24"
+          class="d-inline-block align-text-top" />
         WaffleDecks
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -28,17 +36,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+          <li class="nav-item {% if active_page == 'index' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'index' %}">Inicio</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="aboutus.html">Sobre nosotros</a>
+          <li class="nav-item {% if active_page == 'aboutus' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'aboutus' %}">Sobre nosotros</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.html">Ingresa</a>
+          <li class="nav-item {% if active_page == 'login' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'login' %}">Ingresa</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link" href="catalogo.html">Catálogo</a>
+          <li class="nav-item dropdown {% if active_page == 'tienda' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'tienda' %}">Tienda</a>
           </li>
         </ul>
       </div>
@@ -52,51 +60,15 @@
       <span style="margin:10px" class="contador">0</span>
     </div>
   </nav>
-  <!-- Formulario: -->
+  <!--Fin navbar-->
+
   <div class="container">
-    <h1>Registrate!</h1>
-    <form  onsubmit="validarPasswords(event)" class="row g-3">
-      <div class="col-6">
-        <label for="nombreInput" class="form-label">Nombre</label>
-        <input required type="text" class="form-control" id="nombreInput" placeholder="">
-      </div>
+        <!-- Contenido específico de cada página -->
+        {% block contenido %}
+        {% endblock %}
+    </div>
 
-      <div class="col-6">
-        <label for="apellidoInput" class="form-label">Apellido</label>
-        <input required type="text" class="form-control" id="apellidoInput" placeholder="">
-      </div>
-
-      <div class="col-6">
-        <label for="usuarioInput" class="form-label">Nombre de usuario</label>
-        <input required type="text" class="form-control" id="usuarioInput" placeholder="">
-      </div>
-
-      <div class="col-6">
-        <label for="inputpass" class="form-label">Contraseña </label>
-        <input type="password" class="form-control" id="passwordInput" placeholder="Escriba su contraseña">
-      </div>
-
-      <div class="col-6">
-        <label for="inputpass2" class="form-label">Confirmacion de Contraseña </label>
-        <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Escriba su contraseña Nuevamente">
-      </div>
-
-
-      <div class="col-12">
-        <div class="form-check">
-          <input required type="checkbox" id="checkTerms" class="form-check-input">
-          <label for="checkTerms" class="form-check-label">Acepto los Terminos</label>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">
-          Registrate
-        </button>
-      </div>
-    </form>
-  </div>
-   <!-- Offcanvas -->
+  <!-- Offcanvas -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoOffcanvas" aria-labelledby="carritoOffcanvasLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="carritoOffcanvasLabel">Carrito de compras</h5>
@@ -115,19 +87,7 @@
     </div>
   </div>
   <!-- Fin offcanvas -->
-  <script>
-    const form = document.getElementById('formulario-registro');
-    const passwordInput = document.getElementById('passwordInput');
-    const confirmPasswordInput = document.getElementById('confirmPasswordInput');
-
-    function validarPasswords(event) {  
-      event.preventDefault();
-      if (passwordInput.value !== confirmPasswordInput.value) {
-        event.preventDefault();
-        alert('Las contraseñas no coinciden');
-      }
-    };
-  </script>
+  <!-- Footer -->
   <footer class="bg-dark text-center text-white">
     <hr>
     <div class="container p-4">
@@ -141,13 +101,13 @@
               <a href="aboutus.html">Sobre Nosotros</a>
             </li>
             <li class="">
-              <a href="perfil.html">Perfil</a>
+              <a href="login.html">Ingresa</a>
             </li>
             <li class="">
-              <a href="componentes.html">Componentes</a>
+              <a href="catalogo.html">Catálogo</a>
             </li>
             <li class="">
-              <a href="streamdecks.html">StreamDecks</a>
+              <a href="">Subscribete a las novedades</a>
             </li>
           </ul>
         </div>
@@ -161,21 +121,12 @@
         </div>
       </div>
     </div>
-
-
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2023 Copyright:
       <a class="text-white" href="https://waffle_decks.com/">WaffleDecks</a>
     </div>
-
   </footer>
-
-  </form>
-  </div>
-
-
-
-
+  {% comment %} Fin {% endcomment %}
 </body>
 
 </html>
