@@ -8,5 +8,7 @@ urlpatterns = [
     path("tienda", views.tienda, name="tienda"),
     path("aboutus", views.aboutus, name="aboutus"),
     path("login", views.login, name="login"),
-
+    path("registro", views.registro, name="registro"),
+    path('agregar_al_carrito/<int:deck_id>/',
+         views.agregar_al_carrito, name='agregar_al_carrito'),
 ]

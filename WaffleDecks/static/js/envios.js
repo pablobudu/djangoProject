@@ -7,30 +7,34 @@ async function addRegiones() {
   regiones.map((region) => {
     const option = document.createElement("option");
     option.text = region.nombre;
-    option.value = region.codigo;
+    option.value = region.nombre;
+    option.setAttribute("data-codigo", region.codigo); // Guardar el código de la región en un atributo nuevo: data-codigo
     selectElement.add(option);
   });
 }
 
-/*Va a buscar las comunas de la región seleccionada, y las añade como opciones en el select. */
 async function addComunas() {
-  let codigoRegion = document.getElementById("select-region").value;
+  const regionCodigo = document.getElementById("select-region").options[
+    document.getElementById("select-region").selectedIndex
+  ].getAttribute("data-codigo"); // Obtener el código de la región seleccionada
   document.getElementById("select-comuna").length = 0;
-  let comunas = await fetchComunas(codigoRegion);
+  let comunas = await fetchComunas(regionCodigo);
 
-  if (codigoRegion == 0) {
+  if (regionCodigo === 0) {
     document.getElementById("select-comuna").disabled = true;
   } else {
     const selectElement = document.getElementById("select-comuna");
     comunas.map((comuna) => {
       const option = document.createElement("option");
       option.text = comuna.nombre;
-      option.value = comuna.codigo;
+      option.value = comuna.nombre;
+      option.setAttribute("data-codigo", comuna.codigo); // Guardar el código de la comuna en el atributo data-codigo
       selectElement.add(option);
     });
     document.getElementById("select-comuna").disabled = false;
   }
 }
+
 
 /*Cuando cambie el valor, se enecuta la función addComunas*/
 document.getElementById("select-region").addEventListener("change", addComunas);

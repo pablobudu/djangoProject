@@ -11,11 +11,37 @@
             <div class="card-body">
               <h5 class="card-title">{{ deck.nombreDeck }}</h5>
               <p class="card-text">{{ deck.precioDeck }}</p>
-              <button href="#" producto-id ="{{deck.idDeck}}"class="btn btn-success agregar-carrito">Agregar</button>
+              <button href="{% url 'agregar_al_carrito' deck.idDeck %}" producto-id="{{ deck.idDeck }}" class="btn btn-success agregar-carrito">Agregar</button>
             </div>
           </div>
         </div>
       {% endfor %}
     </div>
   </div>
+{%endblock%}
+{%block scripts%}
+<script>
+  // Obtener el botón "Agregar" por su clase CSS
+  var agregarBtns = document.getElementsByClassName('agregar-carrito');
+
+  // Agregar un evento de clic a cada botón "Agregar"
+  for (var i = 0; i < agregarBtns.length; i++) {
+    agregarBtns[i].addEventListener('click', function() {
+      // Obtener el ID del producto del atributo personalizado "producto-id"
+      var productoId = this.getAttribute('producto-id');
+
+      // Hacer una petición AJAX al endpoint "agregar_al_carrito"
+      var url = '/agregar_al_carrito/' + productoId + '/';
+      var request = new XMLHttpRequest();
+      request.open('GET', url, true);
+      request.onreadystatechange = function() {
+        if (request.readyState === 4 && request.status === 200) {
+          // Actualizar el contenido del offcanvas con la respuesta
+          document.getElementById('carritoOffcanvasContent').innerHTML = request.responseText;
+        }
+      };
+      request.send();
+    });
+  }
+</script>
 {%endblock%}

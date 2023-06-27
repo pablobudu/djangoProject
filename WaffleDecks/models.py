@@ -7,7 +7,11 @@ class Usuario(models.Model):
     idUsuario = models.AutoField(primary_key=True)
     runUsuario = models.CharField(max_length=10)
     primerNombre = models.CharField(max_length=20, blank=False, null=False)
-    segundoNombre = models.CharField(max_length=20, blank=True, null=True)
+    segundoNombre = models.CharField(max_length=20, blank=True, null=False)
+    region = models.CharField(max_length=55, blank=False, null=False)
+    comuna = models.CharField(max_length=55, blank=False, null=False)
+    direccion = models.CharField(max_length=55, blank=False, null=False)
+    password = models.CharField(max_length=20, blank=True, null=True)
     username = models.CharField(max_length=20, blank=True, null=True)
     apPaterno = models.CharField(max_length=25, blank=False, null=False)
     apMaterno = models.CharField(max_length=25, blank=True, null=True)
@@ -31,16 +35,7 @@ class Deck(models.Model):
 
 class Carrito(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
-    decks = models.ManyToManyField(Deck, through='DeckCarrito')
+    decks = models.ManyToManyField(Deck)
 
     def __str__(self):
         return f"Carrito de {self.usuario.username}"
-
-
-class DeckCarrito(models.Model):
-    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
-    deck = models.ForeignKey(Deck, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField(default=1)
-
-    def __str__(self):
-        return f"{self.cantidad} x {self.deck.nombreDeck}"

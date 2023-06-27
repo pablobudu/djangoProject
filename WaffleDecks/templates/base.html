@@ -4,7 +4,6 @@
 Hago esto para que no sea necesario importar la navbar y el footer en cada una de los templates html que hagamos, sino
 que simplemente importamos este arhicvo.
 {% endcomment %}
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,12 +11,11 @@ que simplemente importamos este arhicvo.
   <title>WaffleDecks</title>
   {% load bootstrap5 %}
   {% bootstrap_css %}
-  {% bootstrap_javascript %}
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/app.css'%}">
   {% block scripts %}
+  {% bootstrap_javascript %}
   {% endblock %}
-  <script type="module" src="{% static 'js/carrito.js'%}"></script>
 </head>
 
 <body class="text-bg-dark p-3">
@@ -51,8 +49,9 @@ que simplemente importamos este arhicvo.
         </ul>
       </div>
       <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#carritoOffcanvas"
-        aria-controls="offcanvasRight"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="21"
-          fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+    aria-controls="offcanvasRight">
+    <svg xmlns="http://www.w3.org/2000/svg" width="29" height="21" fill="currentColor" class="bi bi-cart-fill"
+        viewBox="0 0 16 16">
           <path
             d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
         </svg>
@@ -76,6 +75,23 @@ que simplemente importamos este arhicvo.
     </div>
     <div class="offcanvas-body">
       <ul class="list-group mb-3">
+        {% if decksCarrito %}
+    <ul class="list-group mb-3">
+      <!-- Mostrar los productos del carrito -->
+      {% for deck in decksCarrito.all %}
+      <li class="list-group-item d-flex justify-content-between lh-sm">
+        <div>
+          <h6 class="my-0">{{ deck.nombreDeck }}</h6>
+          <small class="text-muted">{{ deck.descripcion }}</small>
+        </div>
+        <span class="text-muted">$ {{ deck.precioDeck }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No hay elementos en el carrito</p>
+    {% endif %}
+    
         <!-- Aquí se mostrarán los productos del carrito -->
       </ul>
       <div class="total">

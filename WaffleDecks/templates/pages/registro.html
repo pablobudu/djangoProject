@@ -1,0 +1,37 @@
+{%extends "base.html"%}
+{% load static %}
+{%block scripts%}
+<script type="module" src="{% static 'js/envios.js'%}"></script>
+{%endblock%}
+{%block contenido %}
+{% comment %} ESTA PAGINA SE LLAMABA ENVIOS.HTML {% endcomment %}
+
+
+
+
+
+
+<!-- Acá va a ir el formulario de registro. -->
+<section class="container container-envio">
+  <form action="" method="post">
+    {% csrf_token %}
+    {{form.as_table}}
+    <input type="submit" value="agregar">
+  </form>
+
+  <h3>Seleccione los datos de envío</h3>
+
+  {% comment %} <form action="" method="post">
+    
+
+    <label for="select-region"> Selecciona tu región</label>
+    <select class="form-select selector" aria-label="Seleccione una región" id ="select-region">
+    </select> 
+    <!-- Select comuna -->
+    <label for="select-comuna">Selecciona tu comuna</label>
+    <select  required class="form-select selector" disabled aria-label="Seleccione una región" id ="select-comuna"></select> 
+    <label for="input-direccion"> Escribe tu dirección</label>
+    <input required type="text"aria-label="" class="form-control" id="input-direccion">
+    <button type="submit" class="btn btn-success selector btn-envio">Confirmar dirección</button>
+  </form> {% endcomment %}
+{%endblock%}
