@@ -48,6 +48,12 @@ que simplemente importamos este arhicvo.
           </li>
         </ul>
       </div>
+      {% if user.is_authenticated%}
+      <p style="color:white">{{user.username}}</p>
+      <a href="{%url 'logout'%}">Cerrar Sesión</a> 
+      {% else %}
+        <a href="{%url 'login'%}">Iniciar Sesión</a> 
+      {%endif%} 
       <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#carritoOffcanvas"
     aria-controls="offcanvasRight">
     <svg xmlns="http://www.w3.org/2000/svg" width="29" height="21" fill="currentColor" class="bi bi-cart-fill"

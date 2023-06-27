@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.views.static import serve
 from .models import Usuario, Carrito, Deck
 from .forms import RegistroUsuarioForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 # El index no requiere de ninguna información adicional: es una página estática.
 
@@ -21,6 +22,7 @@ def index(request):
     return render(request, "pages/index.html", context)
 
 
+@login_required
 def tienda(request):
     decks = Deck.objects.all()
     context = {
@@ -38,10 +40,7 @@ def aboutus(request):
 
 
 def login(request):
-    context = {
-        'active_page': 'tienda',
-    }
-    return render(request, 'pages/login.html', context)
+    return render(request, 'registration/login.html')
 
 
 def registro(request):
