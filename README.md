@@ -14,5 +14,5 @@ password: pass1234
 
 ## COSAS POR HACER:
 1. Arreglar los estilos (css)
-2. Crear un registro (leer los ppt de autenticacion porque el registro tiene que guardarse de forma que funcione con lo que sale en ese ppt)
+2. Crear un modulo de registro para que los usuarios puedan registrarse (leer los ppt de autenticacion de la ultima experiencia porque el registro tiene que guardarse de forma que funcione con lo que sale en ese ppt)
 3. Arreglar carrito.
