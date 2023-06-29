@@ -1,0 +1,13 @@
+{% extends '../base.html' %}
+{% load static %}
+{%block contenido %}
+  <!-- Formulario: -->
+  <div class="container">
+    <h1>Autentícate!</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit"> Autenticar</button>
+    </form>
+  </div>
+{% endblock %}

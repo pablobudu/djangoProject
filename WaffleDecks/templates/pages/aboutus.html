@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+{% load static %}
+
+{%block contenido%}
+  <!-- Descripcion -->
+  <div class="container" id="descriptionContainer">
+    <div class="row">
+      <div class="col-4">
+        <p>Somos una pyme que esta comenzando a incorporarse en el mundo del stream y gaming.
+          <br>Nuestros ideales son simples, queremos aportar nuestro grano de arena en
+          <br>todos los gamers que quieran cumplir su sueño de ser un Streamer profesional.
+          <br>De esta forma nosotros lo apoyamos para que puedan gestionar de mejor
+          <br>manera sus cambios de escenas y darle ese pequeño toque profesional al cual
+          <br>Contamos con distintos modelos y colores, el límite esta en tu imaginación,
+          <br>aspiran nuestros clientes. De esta forma puedes adquirir el que más te guste o
+          <br>el que se acomode a tus preferencias, si no lo tenemos,
+          <br><strong>NOSOTROS TE LO FABRICAMOS </strong>ya que buscamos siempre intentar
+          <br>lograr ese sentimiento de gusto, solo debes hacer tu pedido.
+        </p>
+      </div>
+        <img src="{% static 'imgs/logoclaudio.jpg'%}" alt=""
+          style="display:inline-block; width:600px; height:500px; vertical-align:middle;">
+        <h2 style="display:inline-block; margin-left:10px; vertical-align:middle;">
+        </h2>
+      </div>
+    </div>
+  </div>
+  {%endblock%}
+  
