@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.static import serve
-from .models import Usuario, Carrito, Deck
-from .forms import RegistroUsuarioForm
+from .models import Carrito, Deck
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from .forms import RegistroUsuarioForm
+
 # Create your views here.
-# El index no requiere de ninguna información adicional: es una página estática.
 
 # PAGINAS
 
@@ -43,17 +44,15 @@ def login(request):
     return render(request, 'registration/login.html')
 
 
-def registro(request):
-    form = RegistroUsuarioForm(request.POST)
-    if request.method == "POST":
+def signup(request):
+    if request.method == 'POST':
+        form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
-            usuario = form.save(commit=False)
-            usuario.region = request.POST.get('region')
-            usuario.comuna = request.POST.get('comuna')
-            usuario.save()
-            print("Se registró un usuario")
-            return redirect(login)
-    return render(request, 'pages/registro.html', {"form": form})
+            form.save()
+            return redirect('login')
+    else:
+        form = RegistroUsuarioForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 def serve_product_image(request, filename):

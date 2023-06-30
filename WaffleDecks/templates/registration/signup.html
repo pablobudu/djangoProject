@@ -1,0 +1,16 @@
+{% extends '../base.html' %}
+{% load static %}
+{%block contenido %}
+{%block scripts%}
+<script type="module" src="{% static 'js/envios.js'%}"></script>
+{%endblock%}
+  <!-- Formulario: -->
+  <div class="container">
+    <h1>Regístrate!</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit"> Autenticar</button>
+    </form>
+  </div>
+{% endblock %}

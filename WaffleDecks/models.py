@@ -1,6 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+# Esta clase hereda del User de django (para autenticación), pero le agregamos campos adicionales que nos sirven para almacenarlos en la BD.
+
+
+class CustomUser(AbstractUser):
+    pass
+    region = models.CharField(max_length=100)
+    comuna = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=100)
 
 
 class Usuario(models.Model):
