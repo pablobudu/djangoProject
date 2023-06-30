@@ -1,19 +1,27 @@
 from django.contrib import admin
-from .models import Deck, CustomUser
 from django.contrib.auth.admin import UserAdmin
-# Register your models here.
-admin.site.register(Deck)
+
+from .models import CustomUser, Deck
+
+# Esta clase nos permite mostrar los detalles del usuario en el /admin
 
 
 class CustomUserAdmin(UserAdmin):
-    pass
-
-
-class CustomUserAdmin(UserAdmin):
-    list_display = (
-        'username', 'email', 'first_name', 'last_name', 'region',
-        'comuna', 'direccion'
+    fieldsets = (
+        (None, {
+            'fields': ('username', 'password')
+        }),
+        ('Personal info', {
+            'fields': ('region', 'comuna', 'direccion')
+        }),
+        ('Important dates', {
+            'fields': ('last_login', 'date_joined')
+        }),
+        ('Additional info', {
+            'fields': ()
+        })
     )
 
 
+admin.site.register(Deck)
 admin.site.register(CustomUser, CustomUserAdmin)

@@ -1,9 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
-from django.http import HttpResponse
 from django.views.static import serve
 from .models import Carrito, Deck
-from django.contrib.auth.forms import UserCreationForm
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from .forms import RegistroUsuarioForm
 
@@ -61,29 +60,19 @@ def serve_product_image(request, filename):
 # CARRITO
 
 
+@csrf_exempt
 def mostrar_carrito(request):
-    if 'carrito' in request.session:
-        carrito_id = request.session['carrito']
-        carrito = Carrito.objects.get(id=carrito_id)
-        decksCarrito = carrito.decks.all()
-    else:
-        decksCarrito = []
-
-    return render(request, 'base.html', {'decksCarrito': decksCarrito})
+    # Obtener el carrito del usuario
+    carrito = Carrito.objects.get(usuario=request.user)
+    decks = carrito.decks.all()  # Obtener los decks del carrito
+    return render(request, 'base.html', {'carrito': carrito})
 
 
+@csrf_exempt
+@login_required
 def agregar_al_carrito(request, deck_id):
-    # Verifica si el carrito ya existe en la sesión del usuario
-    if 'carrito' not in request.session:
-        # Si no existe, crea un nuevo carrito vacío y guárdalo en la sesión
-        carrito = Carrito()
-        carrito.save()
-        request.session['carrito'] = carrito.id
-    else:
-        # Si el carrito ya existe, recupéralo de la sesión
-        carrito_id = request.session['carrito']
-        carrito = Carrito.objects.get(id=carrito_id)
-
-    # Agrega el Deck al carrito
-    deck = Deck.objects.get(id=deck_id)
+    deck = get_object_or_404(Deck, idDeck=deck_id)
+    carrito, created = Carrito.objects.get_or_create(usuario=request.user)
     carrito.decks.add(deck)
+    carrito.save()
+    return redirect('tienda')

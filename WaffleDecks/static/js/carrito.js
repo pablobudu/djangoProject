@@ -1,30 +1,37 @@
-let carrito = [];
+
 let contador = 0;
 let botones = document.querySelectorAll(".agregar-carrito");
 
 botones.forEach(function (boton) {
   boton.addEventListener("click", function () {
-    let id = parseInt(boton.getAttribute("producto-id"));
+    let deckId = boton.getAttribute("data-deck-id");
 
-    // Buscamos el producto por su id en el array de productos y lo agregamos al carrito de compras
-    let producto = productos.find(function (p) {
-      return p.id === id;
-    });
-    carrito.push(producto);
-
-    console.log("Se agregó el producto al carrito");
-
-    // Actualizamos la visualización del carrito de compras
-    contador++;
-    actualizarContador();
-    actualizarCarrito();
+    // Enviar la solicitud al servidor utilizando Fetch
+    fetch(`/agregar_al_carrito/${deckId}/`, {
+      method: "POST",
+    })
+      .then(function (response) {
+        if (response.ok) {
+          console.log("Deck agregado al carrito");
+          // Realizar cualquier acción adicional después de agregar el deck al carrito
+        } else {
+          console.log("Error al agregar el deck al carrito");
+          // Manejar el error en caso de que ocurra
+        }
+      })
+      .catch(function (error) {
+        console.log("Error al enviar la solicitud");
+        // Manejar el error en caso de que ocurra
+      });
   });
 });
+
+
 
 function actualizarTotal() {
   let total = 0;
   for (let i = 0; i < carrito.length; i++) {
-    total += carrito[i].precio;
+    total += carrito[i].precioDeck;
   }
   let totalElemento = document.querySelector(".total");
   totalElemento.textContent = "Total: $" + total;
@@ -36,7 +43,7 @@ function actualizarCarrito() {
   );
   carritoContenedor.innerHTML = "";
 
-  carrito.forEach(function (producto) {
+  carrito.forEach(function (deck) {
     let itemCarrito = document.createElement("li");
     itemCarrito.classList.add(
       "list-group-item",
@@ -46,15 +53,17 @@ function actualizarCarrito() {
     );
     itemCarrito.innerHTML = `
         <div>
-          <h6 class="my-0">${producto.nombre}</h6>
-          <small class="text-muted">${producto.descripcion}</small>
+          <h6 class="my-0">${deck.nombreDeck}</h6>
+          <small class="text-muted">${deck.descripcion}</small>
         </div>
-        <span class="text-muted">$${producto.precio}</span>
+        <span class="text-muted">$${deck.precioDeck}</span>
+        <button class="agregar-carrito" data-deck-id="${deck.idDeck}">Agregar al carrito</button>
       `;
     carritoContenedor.appendChild(itemCarrito);
     actualizarTotal();
   });
 }
+
 function actualizarContador() {
   let contadorElemento = document.querySelector(".contador");
   contadorElemento.textContent = contador;

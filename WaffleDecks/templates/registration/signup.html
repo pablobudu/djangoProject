@@ -10,7 +10,8 @@
     <form method="POST">
       {% csrf_token %}
       {{form.as_p}}
-      <button type="submit"> Autenticar</button>
+      <button type="submit"> Registrarse</button>
+      <p>Si ya tienes una cuenta, haz click <a href="{%url 'login'%}"> aquí.</a></p>
     </form>
   </div>
 {% endblock %}

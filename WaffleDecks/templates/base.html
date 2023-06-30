@@ -12,9 +12,11 @@ que simplemente importamos este archivo.
   {% load bootstrap5 %}
   {% bootstrap_css %}
   {% load static %}
-  <link type='text/css' rel="stylesheet" href="{% static 'WaffleDecks/static/css/app.css'%}">
+  <link type='text/css' rel="stylesheet" href="{% static '/cssapp.css'%}">
+  <script type="module" src="{% static 'js/carrito.js'%}"></script>
   {% block scripts %}
   {% bootstrap_javascript %}
+  
   {% endblock %}
 </head>
 
@@ -75,17 +77,16 @@ que simplemente importamos este archivo.
     </div>
 
   <!-- Offcanvas -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoOffcanvas" aria-labelledby="carritoOffcanvasLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="carritoOffcanvasLabel">Carrito de compras</h5>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul class="list-group mb-3">
-        {% if decksCarrito %}
-    <ul class="list-group mb-3">
-      <!-- Mostrar los productos del carrito -->
-      {% for deck in decksCarrito.all %}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="carritoOffcanvas" aria-labelledby="carritoOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="carritoOffcanvasLabel">Carrito de compras</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    {% if decksCarrito %}
+  <ul class="list-group mb-3">
+    <!-- Mostrar los productos del carrito -->
+    {% for deck in decksCarrito %}
       <li class="list-group-item d-flex justify-content-between lh-sm">
         <div>
           <h6 class="my-0">{{ deck.nombreDeck }}</h6>
@@ -93,23 +94,21 @@ que simplemente importamos este archivo.
         </div>
         <span class="text-muted">$ {{ deck.precioDeck }}</span>
       </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No hay elementos en el carrito</p>
-    {% endif %}
-    
-        <!-- Aquí se mostrarán los productos del carrito -->
-      </ul>
-      <div class="total">
-        Total: $0
-      </div>
-      <div class="d-grid">
-        <a href="envios.html" class="btn btn-primary btn-lg">Pagar</a>
-      </div>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No hay elementos en el carrito</p>
+{% endif %}
+
+    <div class="total">
+      Total: $0
+    </div>
+    <div class="d-grid">
+      <a href="envios.html" class="btn btn-primary btn-lg">Pagar</a>
     </div>
   </div>
-  <!-- Fin offcanvas -->
+</div>
+<!-- Fin offcanvas -->
   <!-- Footer -->
   <footer class="bg-dark text-white">
     <hr>
